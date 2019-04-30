@@ -67,7 +67,6 @@
 
 <script>
 import GoogleLogin from "vue-google-login";
-import VFacebookLogin from "vue-facebook-login-component";
 
 import { eventBus } from "../main";
 
@@ -191,8 +190,7 @@ export default {
   },
   components: {
     auth,
-    GoogleLogin,
-    VFacebookLogin
+    GoogleLogin
   }
 };
 </script>
