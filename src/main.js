@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import LoadScript from 'vue-plugin-load-script';
 import router from './router'
-import jQuery from 'jquery';
+import VFacebookLogin from "vue-facebook-login-component";
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -10,9 +10,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import BImg from 'bootstrap-vue/es/components/image/img'
 import App from './App.vue'
 
-global.jQuery = jQuery;
-import 'vue-facebook-signin-button/dist/vue-facebook-signin-button.min.js'
 
+Vue.component("v-facebook-login", VFacebookLogin);
 Vue.component('b-img', BImg);
 Vue.use(BootstrapVue);
 Vue.use(VueResource);
@@ -64,6 +63,10 @@ export const eventBus = new Vue({
 
     updateLeaderboard(status){
       this.$emit('updateLeaderboard', status);
+    },
+
+    updateFacebookData(status, name, email){
+      this.$emit('update', status, name, email);
     }
 
   }

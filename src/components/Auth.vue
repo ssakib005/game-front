@@ -8,14 +8,21 @@
               <h5>Sign In</h5>
             </div>
             <div class="modal-body">
-              <GoogleLogin class="g-signin-button"
-              :params="params" 
-              :onSuccess="onSuccess" 
-              :onFailure="onFailure">Sign In with Google
-              </GoogleLogin>
+              <GoogleLogin
+                class="g-signin-button"
+                :params="params"
+                :onSuccess="onSuccess"
+                :onFailure="onFailure"
+              >Sign In with Google</GoogleLogin>
               <br>
               <br>
-              <v-facebook-login app-id="1087532861266711"></v-facebook-login>
+              <v-facebook-login
+                app-id="2162413263843211"
+                @login="getUserData"
+                @logout="getUserData"
+                @connect="conect"
+                :token-style="style"
+              ></v-facebook-login>
             </div>
             <div class="modal-footer">
               <b-button @click="closeModal">Close</b-button>
@@ -28,67 +35,115 @@
 </template>
 
 <script>
-import  GoogleLogin  from 'vue-google-login';
-import VFacebookLogin from 'vue-facebook-login-component'
+import GoogleLogin from "vue-google-login";
 
-import { eventBus } from '../main';
-import { close, truncate } from 'fs';
-import { win32 } from 'path';
+import { eventBus } from "../main";
 
 export default {
-  components:{
+  components: {
     GoogleLogin,
-    VFacebookLogin
   },
   name: "auth",
   data() {
     return {
       score: 0,
-      email: '',
-      password: '',
+      email: "",
+      fulName: "",
+      conect: false,
       params: {
         client_id:
           "1025638494646-drbrc0n5uoo9q2nu868ibkgb4mjdd7nv.apps.googleusercontent.com",
         redirect_uri: "http://localhost:8080"
       },
+      isFacebook: false,
+      isGoogle: false,
       signData: {
-        id: Number, 
+        id: Number,
         fulName: String,
         email: String,
         loginType: String
       }
     };
   },
+  computed: {
+    style: function() {
+      return {
+        display: "none"
+      };
+    }
+  },
   methods: {
-    
+
     onSuccess(googleUser) {
       this.signData["email"] = googleUser.getBasicProfile().getEmail();
       this.signData["fulName"] = googleUser.getBasicProfile().getName();
       this.signData["loginType"] = "google";
-
-      // localStorage.setItem('cricket_auth',this.signData);
+      this.isGoogle = true;
       this.submit();
     },
-    onFailure(error){
+    onFailure(error) {
       console.log(error);
     },
-    closeModal: function(){
+    getUserData() {
+      window.FB.api("/me/?fields=email,name", function(response) {
+        if (response != null) {
+          this.email = response.email;
+          this.fulName = response.name;
+          if(this.fulName == undefined){
+            eventBus.updateFacebookData(false);
+          }else{
+            eventBus.updateFacebookData(true, this.fulName, this.email);
+          }
+          
+        }
+      });
+    },
+
+    onLogout(error) {
+      console.log(error);
+    },
+    closeModal: function() {
       eventBus.closeLoginModal();
     },
-    submit(){
-      this.$http.post("http://localhost:8090/user/login", JSON.stringify(this.signData))
-      .then(response => {
-        if(response.ok){
-          console.log(response);
-          this.signData = response.data;
-          localStorage.removeItem('cricket_auth');
-          localStorage.setItem('cricket_auth', JSON.stringify(this.signData));
-          console.log(JSON.parse(localStorage.getItem('cricket_auth')));
-          eventBus.enableLogout();
-          eventBus.loginUpdateApp(true);
+    submit() {
+      if (this.isFacebook || this.isGoogle) {
+        if (this.isFacebook) {
+          this.signData["fulName"] = this.fulName;
+          this.signData["email"] = this.email;
+          this.signData["loginType"] = "facebook";
         }
-      })
+        this.$http
+          .post(
+            "http://localhost:8090/user/login",
+            JSON.stringify(this.signData)
+          )
+          .then(response => {
+            if (response.ok) {
+              console.log(response);
+              this.signData = response.data;
+              localStorage.removeItem("cricket_auth");
+              localStorage.setItem(
+                "cricket_auth",
+                JSON.stringify(this.signData)
+              );
+              console.log(JSON.parse(localStorage.getItem("cricket_auth")));
+              eventBus.enableLogout();
+              eventBus.loginUpdateApp(true);
+            }
+          });
+      }
     }
+  },
+  mounted(){
+     eventBus.$on("update", (status, name, email) => {
+       if(status){
+         this.isFacebook = true;
+         this.email = email;
+         this.fulName = name;
+         this.submit();
+       }
+      
+    });
   },
 };
 </script>
@@ -108,7 +163,7 @@ export default {
   padding: 10px;
   width: 100%;
   border: 0px;
-  background-color:red;
+  background-color: red;
   color: white;
   border-radius: 5px;
 }
@@ -130,7 +185,7 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 330px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: black;

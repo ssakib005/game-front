@@ -4,7 +4,7 @@
       <b-card
         bg-variant="dark"
         body-bg-variant="black"
-        header="Scoreboard"
+        header="স্কোরবোর্ড"
         fluidGrow
         text-variant="white"
         header-text-variant="white"
@@ -13,7 +13,7 @@
         <div>
           <b-row>
             <b-col>
-              <b-card-text>Run: </b-card-text>
+              <b-card-text>রান: </b-card-text>
             </b-col>
             <b-col>
               <b-card-text style="float: right">{{ score }}</b-card-text>
@@ -22,7 +22,7 @@
           <hr style="background-color: yellow; height: 2px">
           <b-row>
             <b-col cols="4">
-              <p style="float: left">Wicket:</p>
+              <p style="float: left">উইকেট:</p>
             </b-col>
             <b-col style="float: right;">
               <div :class="{notOut: !isWicketFirst, out: isWicketFirst}" style="float: right"></div>

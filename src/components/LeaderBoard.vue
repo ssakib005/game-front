@@ -3,11 +3,11 @@
     <b-col>
       <b-card
         bg-variant="dark"
-        header="Leaderboard"
+        header="লিডারবোর্ডে"
         text-variant="white"
         header-class="text-center"
       >
-      <b-card-text class="sub-title">Top 5 highest score</b-card-text>
+      <b-card-text class="sub-title">শীর্ষ ৫ সর্বোচ্চ স্কোরর </b-card-text>
         <div class="details" v-for="(d, index) in leaderData">
           <b-row>
             <b-col cols="2">{{ index+1 }}</b-col>
@@ -18,7 +18,7 @@
           </b-row>
         </div>
         <div slot="footer" v-if="!isLogin">
-            <b-card-text class="sub-title">Your score</b-card-text>
+            <b-card-text class="sub-title">আপনার স্কোর</b-card-text>
           <div class="details">
             <b-row>
               <b-col cols="2">{{ position }}</b-col>
@@ -75,6 +75,7 @@ export default {
               this.score = this.scoreBoard["score"];
             }
           });
+          this.userName = this.signData["fulName"];
       }
     },
     getLeaderboardData: function() {
@@ -101,6 +102,7 @@ export default {
         this.getLeaderboardData();
         this.getData();
         this.isLogin = false;
+        
       }else{
         this.getLeaderboardData();
         this.isLogin = true;
