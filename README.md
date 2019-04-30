@@ -1,1 +1,1 @@
-# game-front
+dist folder contains build file
