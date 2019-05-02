@@ -61,7 +61,7 @@ export default {
     },
     roatedAnimation: function() {
       if (!this.isStop) {
-        this.blur = 15;
+        this.blur = 30;
         this.style;
         setTimeout(this.roatedAnimation, 0);
         if (this.degree > 360) {

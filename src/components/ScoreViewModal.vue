@@ -11,7 +11,7 @@
                 text-variant="white"
                 class="text-container nopadding"
               >
-                <div slot="header"><strong>অভিনঁদন</strong></div>
+                <div slot="header"><strong>অভিনন্দন</strong></div>
                 <b-card-text class="body-text">আপনার স্কোর হচ্ছে :  <strong>{{ score }}</strong></b-card-text>
                 <hr>
                 <!-- <b-button v-if="!isLogin" @click="refreshGame" class="again-button">পুনরায়</b-button> -->
@@ -19,9 +19,10 @@
                 <div slot="footer" v-if="isLogin" :class="style">
                   <small class="text-muted" v-if="!isSignInClick">
                     লিডারবোর্ডে যোগ দিতে চান?
-                    <b-link @click="displaySignin" class="card-link">Sign in</b-link>
+                    <b-link @click="displaySignin" class="card-link">সাইন ইন</b-link>
                   </small>
-                  <br>
+                     <h6 v-if="isSignInClick" class="text-muted or-text">অথবা</h6>
+                  
                   <GoogleLogin
                     v-if="isSignInClick"
                     class="g-signin-button"
@@ -29,8 +30,7 @@
                     :onSuccess="onSuccess"
                     :onFailure="onFailure"
                   >Sign In with Google</GoogleLogin>
-                  <br>
-                  <br>
+                  <hr>
                   <v-facebook-login
                     v-if="isSignInClick"
                     app-id="2162413263843211"
@@ -39,6 +39,7 @@
                     @connect="conect"
                     :token-style="tokenStyle"
                   ></v-facebook-login>
+                  <br>
                 </div>
               </b-card>
             </b-col>
@@ -196,6 +197,12 @@ export default {
 </script>
 
 <style scoped>
+
+.or-text{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
 .body-text{
   padding-top: 10px;

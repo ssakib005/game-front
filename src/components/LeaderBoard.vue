@@ -6,6 +6,7 @@
         header="লিডারবোর্ডে"
         text-variant="white"
         header-class="text-center"
+        fluidGrow
       >
       <b-card-text class="sub-title">শীর্ষ ৫ সর্বোচ্চ স্কোরর </b-card-text>
         <div class="details" v-for="(d, index) in leaderData">

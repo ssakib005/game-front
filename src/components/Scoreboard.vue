@@ -9,7 +9,7 @@
         text-variant="white"
         header-text-variant="white"
         header-class="text-center"
-        class="card-header">
+        >
         <div>
           <b-row>
             <b-col>
