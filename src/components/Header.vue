@@ -1,8 +1,18 @@
 <template>
   <div class="top-view">
-    <b-button variant="outline-primary" class="login-btn" @click="openModal" v-if="login">Login</b-button>
-
-    <b-button class="logout-btn" @click="logOut" v-if="!login">Logout</b-button>
+    <div class="header-icon">
+      <b-img
+        :src="require('@/assets/head.png')"
+        height="120%"
+        >
+      </b-img>
+    </div>
+    <div class="login-btn">
+      <b-button variant="outline-primary" style="float: right" @click="openModal" v-if="login">Login</b-button>
+      <b-button class="logout-btn" @click="logOut" v-if="!login">Logout</b-button>
+    </div>
+    
+    
     <v-facebook-login
       class="fb"
       app-id="2162413263843211"
@@ -64,14 +74,18 @@ export default {
   display: none;
 }
 .top-view {
-  height: 50px;
+  min-height: 50px;
+  display: inline;
+}
+.header-icon{
+  width: 80%;
 }
 .login-btn {
-  float: right;
-  margin-top: 10px;
+  width: 20%;
 }
 .logout-btn {
   float: right;
+  width: 80%;
   margin-top: 10px;
   background-color: red;
   color: white;
