@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import LoadScript from 'vue-plugin-load-script';
-// import router from './router'
+import router from './router'
 import VFacebookLogin from "vue-facebook-login-component";
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -82,6 +82,6 @@ export const eventBus = new Vue({
 });
 
 new Vue({
-  // router,
+  router,
   render: h => h(App)
 }).$mount('#app')

@@ -150,7 +150,6 @@ export default {
 
 <style scoped>
 .fb-signin-button {
-  /* This is where you control how the button looks. Be creative! */
   display: inline-block;
   padding: 4px 8px;
   border-radius: 3px;
@@ -158,7 +157,6 @@ export default {
   color: #fff;
 }
 .g-signin-button {
-  /* This is where you control how the button looks. Be creative! */
   display: inline-block;
   padding: 10px;
   width: 100%;
