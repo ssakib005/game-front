@@ -19,11 +19,23 @@
           width="60%"
           class="indicator"
         ></b-img>
-        <hr style="background-color: black; height:2px">
+        <hr style="background-color: yellow; height:2px">
         <div class="button-positions">
-          <b-img 
-          :src=getImage(buttonIcon)
-          height="60px" @click="playOrStop"></b-img>
+          <!-- <b-img :src="getImage(buttonIcon)" height="60px" @click="playOrStop"></b-img> -->
+          <div>
+            <b-button
+            variant="warning"
+              pill
+              @click="playOrStop"
+              v-if="!isPlay"
+            >খেলুন  <font-awesome-icon icon="play" /> </b-button>
+            <b-button 
+              variant="danger"
+              pill
+              @click="playOrStop"
+              v-if="isPlay"
+            >থামুন  <font-awesome-icon icon="stop" />  </b-button>
+          </div>
         </div>
       </b-col>
     </b-row>
@@ -56,8 +68,8 @@ export default {
     }
   },
   methods: {
-    getImage(pic){
-      return require('../assets/'+pic)
+    getImage(pic) {
+      return require("../assets/" + pic);
     },
     roatedAnimation: function() {
       if (!this.isStop) {
@@ -80,12 +92,12 @@ export default {
       this.resetStatus();
     },
 
-    playOrStop: function(){
-      if(!this.isPlay){
+    playOrStop: function() {
+      if (!this.isPlay) {
         this.roatedAnimation();
         this.isPlay = true;
         this.buttonIcon = "stop.png";
-      }else{
+      } else {
         this.stopAnimation();
         this.isPlay = false;
         this.buttonIcon = "play.png";
@@ -139,8 +151,8 @@ export default {
       eventBus.scoreStatus(this.run);
     }
   },
-  created(){
-    eventBus.$on('refresh', () => {
+  created() {
+    eventBus.$on("refresh", () => {
       this.degree = 0;
     });
   }
@@ -155,7 +167,8 @@ export default {
 }
 
 .game-container {
-  margin-top: 0px;
+  margin-top: 20px;
+  margin-bottom: 30px;
   position: relative;
 }
 

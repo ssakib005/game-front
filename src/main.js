@@ -1,22 +1,31 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import LoadScript from 'vue-plugin-load-script';
-import router from './router'
+// import router from './router'
 import VFacebookLogin from "vue-facebook-login-component";
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCoffee, faPlay, faStop } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import BImg from 'bootstrap-vue/es/components/image/img'
 import App from './App.vue'
 
+library.add(faCoffee)
+library.add(faPlay)
+library.add(faStop)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.component("v-facebook-login", VFacebookLogin);
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('b-img', BImg);
 Vue.use(BootstrapVue);
 Vue.use(VueResource);
 Vue.use(LoadScript);
-// Vue.loadScript("/vue-facebook-signin-button.min.js");
 
 Vue.config.productionTip = false
 
@@ -73,6 +82,6 @@ export const eventBus = new Vue({
 });
 
 new Vue({
-  router,
+  // router,
   render: h => h(App)
 }).$mount('#app')

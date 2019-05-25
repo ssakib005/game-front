@@ -104,7 +104,7 @@ export default {
       params: {
         client_id:
           "1025638494646-drbrc0n5uoo9q2nu868ibkgb4mjdd7nv.apps.googleusercontent.com",
-        redirect_uri: "http://localhost:8080"
+        redirect_uri: "http://localhost:8082/"
       },
       signData: {
         id: Number,
@@ -163,7 +163,7 @@ export default {
           this.signData["loginType"] = "facebook";
         }
          this.$http
-        .post("http://localhost:8090/user/login", JSON.stringify(this.signData))
+        .post("http://localhost:8080/cricket/user/login", JSON.stringify(this.signData))
         .then(response => {
           if (response.ok) {
             console.log(response);

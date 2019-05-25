@@ -1,10 +1,10 @@
 <template>
-  <b-row style="margin-top:30px">
+  <b-row style="margin-top:10px; margin-bottom: 20px">
     <b-col>
       <b-card
-        bg-variant="dark"
+        bg-variant="white"
         header="লিডারবোর্ডে"
-        text-variant="white"
+        text-variant="black"
         header-class="text-center"
         fluidGrow
       >
@@ -14,7 +14,7 @@
             <b-col cols="2">{{ index+1 }}</b-col>
             <b-col cols="6">{{ d.userName }}</b-col>
             <b-col cols="4">
-              <span style="float: right; color: yellow">{{ d.score }}</span>
+              <span class="user-details">{{ d.score }}</span>
             </b-col>
           </b-row>
         </div>
@@ -25,7 +25,7 @@
               <b-col cols="2">{{ position }}</b-col>
               <b-col cols="6">{{ userName }}</b-col>
               <b-col cols="4">
-                <span style="float: right; color: yellow">{{ score }}</span>
+                <span class="user-details">{{ score }}</span>
               </b-col>
             </b-row>
           </div>
@@ -37,7 +37,7 @@
 
 <script>
 import { eventBus } from '../main';
-import { truncate } from 'fs';
+
 export default {
   name: "leaderboard",
   data: function() {
@@ -66,7 +66,7 @@ export default {
       this.signData = JSON.parse(localStorage.getItem("cricket_auth"));
       if (this.signData != null) {
         this.$http
-          .get("http://localhost:8090/score/find/" + this.signData["id"])
+          .get("http://localhost:8080/cricket/score/find/" + this.signData["id"])
           .then(res => {
             if (res.ok) {
               this.isLogin = false;
@@ -80,7 +80,7 @@ export default {
       }
     },
     getLeaderboardData: function() {
-      this.$http.get("http://localhost:8090/score/all").then(res => {
+      this.$http.get("http://localhost:8080/cricket/score/all").then(res => {
         if (res.ok) {
           const resultArray = [];
           for (let key in res.data) {
@@ -116,15 +116,20 @@ export default {
 <style scoped>
 .sub-title{
     text-align: center;
-    color: darkgrey;
+    color: rgb(90, 85, 85);
     font-size: 14px;
 }
 .details {
   width: 100%;
   padding: 10px;
-  border: 1px solid #263238;
+  border: 1px solid #ced2d4;
   margin: 5px;
   border-radius: 5px;
   font-size: 12px;
+}
+.user-details{
+  float: right; 
+  color: rgb(12, 106, 109);
+  font-weight: bold;
 }
 </style>

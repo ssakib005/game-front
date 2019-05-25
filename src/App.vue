@@ -2,6 +2,13 @@
   <div>
     <b-container fluid>
       <headerview></headerview>
+      <b-img
+          :src="require('@/assets/head.png')"
+          center
+          fluid
+          height="200%"
+          width="200%"
+        ></b-img>
       <b-row>
         <authview v-if="modal"></authview>
         <scoreviewmodal v-if="congoModal" :score="run" :isLogin="isLogin"></scoreviewmodal>
@@ -14,6 +21,9 @@
         <b-col md="3">
           <leaderboard></leaderboard>
         </b-col>
+      </b-row>
+      <b-row>
+        <footerview></footerview>
       </b-row>
     </b-container>
   </div>
@@ -28,6 +38,7 @@ import leaderboard from "@/components/LeaderBoard.vue";
 import scoreboard from "@/components/Scoreboard.vue";
 import authview from "@/components/Auth.vue";
 import scoreviewmodal from "@/components/ScoreViewModal.vue";
+import footerview from "@/components/Footer.vue";
 
 export default {
   name: "app",
@@ -70,7 +81,7 @@ export default {
       this.scoreBoard["score"] = this.run;
       this.scoreBoard["userID"] = this.signData["id"];
       this.scoreBoard["userName"] = this.signData["fulName"];
-      this.$http.post("http://localhost:8090/score/add", JSON.stringify(this.scoreBoard))
+      this.$http.post("http://localhost:8080/cricket/score/add", JSON.stringify(this.scoreBoard))
       .then(responce => {
         console.log(responce);
       })
@@ -121,7 +132,8 @@ export default {
     leaderboard,
     scoreboard,
     authview,
-    scoreviewmodal
+    scoreviewmodal,
+    footerview
   }
 };
 </script>

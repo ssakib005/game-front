@@ -53,7 +53,7 @@ export default {
       params: {
         client_id:
           "1025638494646-drbrc0n5uoo9q2nu868ibkgb4mjdd7nv.apps.googleusercontent.com",
-        redirect_uri: "http://localhost:8080"
+        redirect_uri: "http://localhost:8080/app/"
       },
       isFacebook: false,
       isGoogle: false,
@@ -114,7 +114,7 @@ export default {
         }
         this.$http
           .post(
-            "http://localhost:8090/user/login",
+            "http://localhost:8080/cricket/user/login",
             JSON.stringify(this.signData)
           )
           .then(response => {

@@ -1,13 +1,13 @@
 <template>
-  <b-row style="margin-top:30px">
+  <b-row style="margin-top:10px; margin-bottom: 20px">
     <b-col>
       <b-card
-        bg-variant="dark"
-        body-bg-variant="black"
+        bg-variant="white"
+        body-bg-variant="white"
         header="স্কোরবোর্ড"
         fluidGrow
-        text-variant="white"
-        header-text-variant="white"
+        text-variant="black"
+        header-text-variant="black"
         header-class="text-center"
         >
         <div>
